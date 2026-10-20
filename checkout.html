@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>주문서 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 토스페이먼츠 결제위젯 SDK v2 -->
+  <script src="https://js.tosspayments.com/v2/standard"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a></h1>
+      <nav class="header__util">
+        <a href="index.html">쇼핑 계속하기</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inner">
+    <h2 class="page-title">주문서</h2>
+
+    <div class="checkout">
+      <div>
+        <section class="box">
+          <h3 class="box__title">주문 상품 <span class="order-count"></span></h3>
+          <div class="order-list"></div>
+        </section>
+
+        <section class="box">
+          <h3 class="box__title">주문자 정보</h3>
+          <div class="form-row">
+            <label for="customerName">이름</label>
+            <input id="customerName" type="text" placeholder="이름을 입력하세요" autocomplete="name">
+          </div>
+          <div class="form-row">
+            <label for="customerPhone">휴대폰 번호</label>
+            <input id="customerPhone" type="tel" placeholder="숫자만 입력 (예: 01012345678)" autocomplete="tel">
+          </div>
+          <div class="form-row">
+            <label for="customerEmail">이메일</label>
+            <input id="customerEmail" type="email" placeholder="example@email.com" autocomplete="email">
+          </div>
+        </section>
+
+        <section class="box">
+          <h3 class="box__title">결제 수단</h3>
+          <!-- 결제 UI -->
+          <div id="payment-method"></div>
+          <!-- 이용약관 UI -->
+          <div id="agreement"></div>
+        </section>
+      </div>
+
+      <aside class="summary">
+        <h3 class="box__title">결제 금액</h3>
+        <p class="summary__row"><span>상품 금액</span><span class="sum-origin">0원</span></p>
+        <p class="summary__row"><span>할인 금액</span><span class="sum-discount">0원</span></p>
+        <p class="summary__row"><span>배송비</span><span class="sum-delivery">0원</span></p>
+        <p class="summary__row is-total"><span>총 결제금액</span><strong class="sum-total">0원</strong></p>
+        <button type="button" class="btn btn--blue pay-btn" disabled>결제하기</button>
+        <p class="notice">토스페이먼츠 테스트 환경입니다. 결제를 진행해도 실제로 청구되지 않습니다.<br>5만원 이상 구매 시 무료배송 (미만 3,000원)</p>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="inner">
+      <strong>OUTFIT</strong>
+      <p>퍼블리싱 데모 페이지입니다.</p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

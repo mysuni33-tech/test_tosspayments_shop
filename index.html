@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상의 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-category="top">
+  <p class="top-banner">첫 구매 시 전 상품 <b>20% 할인 쿠폰</b> 지급 · 5만원 이상 무료배송</p>
+
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a></h1>
+      <label class="search">
+        <span class="blind">상품 검색</span>
+        <input type="search" placeholder="브랜드, 상품명 검색">
+      </label>
+      <nav class="header__util">
+        <a href="#" class="hide-m">로그인</a>
+        <a href="#" class="hide-m">마이페이지</a>
+        <a href="#" class="cart-btn">장바구니<span class="cart-count">0</span></a>
+      </nav>
+    </div>
+    <nav class="gnb">
+      <ul class="inner">
+        <li><a href="index.html" class="is-active">상의</a></li>
+        <li><a href="shoes.html">신발</a></li>
+        <li><a href="pants.html">바지</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="inner hero__inner">
+        <div>
+          <p class="hero__label">TOP RANKING</p>
+          <h2 class="hero__title">이번 주 가장 많이 팔린<br>상의 랭킹</h2>
+          <p class="hero__desc">반팔부터 후드, 니트까지 지금 인기 있는 상의를 확인하세요.</p>
+        </div>
+        <div class="hero__badge">UP TO<br>40%</div>
+      </div>
+    </section>
+
+    <section class="inner">
+      <div class="section-head">
+        <div>
+          <h2>상의</h2>
+          <p>총 <span class="list-count">0</span>개 상품</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="chips"></div>
+        <select class="sort" aria-label="정렬">
+          <option value="rank">인기순</option>
+          <option value="low">낮은 가격순</option>
+          <option value="high">높은 가격순</option>
+          <option value="sale">할인율순</option>
+          <option value="review">후기 많은순</option>
+        </select>
+      </div>
+      <ul class="grid"></ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="inner">
+      <strong>OUTFIT</strong>
+      <p>퍼블리싱 데모 페이지입니다. 상품 정보와 가격은 실제와 다를 수 있습니다.</p>
+      <p>결제는 토스페이먼츠 테스트 환경으로 진행되며 실제로 청구되지 않습니다.</p>
+    </div>
+  </footer>
+
+  <!-- 상품 상세 모달 -->
+  <div class="dim"></div>
+  <div class="modal" role="dialog" aria-modal="true" aria-label="상품 상세">
+    <div class="modal__thumb"><img src="" alt=""></div>
+    <div class="modal__body">
+      <button type="button" class="modal__close" aria-label="닫기">×</button>
+      <p class="modal__brand"></p>
+      <p class="modal__name"></p>
+      <p class="modal__price"></p>
+      <p class="modal__label">사이즈</p>
+      <div class="sizes"></div>
+      <p class="modal__label">수량</p>
+      <div class="qty">
+        <button type="button" data-step="-1" aria-label="수량 빼기">−</button>
+        <input type="text" value="1" readonly aria-label="수량">
+        <button type="button" data-step="1" aria-label="수량 더하기">+</button>
+      </div>
+      <p class="modal__total"><span>총 상품금액</span><strong>0원</strong></p>
+      <div class="modal__btns">
+        <button type="button" class="btn" data-action="cart">장바구니</button>
+        <button type="button" class="btn btn--black" data-action="buy">바로 구매</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 장바구니 드로어 -->
+  <aside class="drawer" aria-label="장바구니">
+    <div class="drawer__head">
+      <h2>장바구니</h2>
+      <button type="button" class="drawer__close" aria-label="닫기">×</button>
+    </div>
+    <div class="drawer__list"></div>
+    <div class="drawer__foot">
+      <p class="drawer__sum"><span>총 결제금액</span><strong class="drawer__total">0원</strong></p>
+      <button type="button" class="btn btn--black drawer__order">주문하기</button>
+    </div>
+  </aside>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

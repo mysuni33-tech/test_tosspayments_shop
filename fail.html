@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제 실패 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a></h1>
+    </div>
+  </header>
+
+  <main class="result">
+    <div class="result__icon is-fail">!</div>
+    <h1>결제에 실패했습니다</h1>
+    <p class="r-message">결제가 정상적으로 처리되지 않았습니다.</p>
+    <dl>
+      <div><dt>에러 코드</dt><dd class="r-code">-</dd></div>
+      <div><dt>주문번호</dt><dd class="r-order">-</dd></div>
+    </dl>
+    <a href="checkout.html" class="btn btn--black">다시 결제하기</a>
+  </main>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      if (params.get('message')) document.querySelector('.r-message').textContent = params.get('message');
+      document.querySelector('.r-code').textContent = params.get('code') || '-';
+      document.querySelector('.r-order').textContent = params.get('orderId') || '-';
+    })();
+  </script>
+</body>
+</html>

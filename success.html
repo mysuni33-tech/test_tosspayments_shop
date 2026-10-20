@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결제 완료 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a></h1>
+    </div>
+  </header>
+
+  <main class="result">
+    <div class="result__icon">…</div>
+    <h1 class="r-title">결제를 승인하는 중입니다</h1>
+    <p class="result__msg">잠시만 기다려 주세요.</p>
+    <dl hidden>
+      <div><dt>주문번호</dt><dd class="r-order">-</dd></div>
+      <div><dt>상품</dt><dd class="r-name">-</dd></div>
+      <div><dt>결제수단</dt><dd class="r-method">-</dd></div>
+      <div><dt>결제금액</dt><dd class="r-amount">-</dd></div>
+      <div><dt>승인일시</dt><dd class="r-date">-</dd></div>
+    </dl>
+    <a href="index.html" class="btn btn--black" hidden>쇼핑 계속하기</a>
+  </main>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script>
+    /*
+      결제 인증 성공 후 이동하는 페이지입니다.
+      받은 paymentKey, orderId, amount를 서버(/api/confirm)로 보내면
+      서버가 금액을 검증한 뒤 시크릿 키로 토스페이먼츠 결제 승인 API를 호출합니다.
+    */
+    (async function () {
+      const params = new URLSearchParams(location.search);
+      const orderId = params.get('orderId');
+      let pending = null;
+      try {
+        pending = JSON.parse(sessionStorage.getItem('outfit_pending'));
+      } catch (e) {}
+
+      function fail(code, message) {
+        location.replace(
+          'fail.html?code=' + encodeURIComponent(code) +
+          '&message=' + encodeURIComponent(message) +
+          '&orderId=' + encodeURIComponent(orderId || '')
+        );
+      }
+
+      if (!pending || pending.orderId !== orderId) {
+        return fail('INVALID_ORDER', '주문 정보가 일치하지 않습니다.');
+      }
+
+      let payment;
+      try {
+        const res = await fetch('/api/confirm', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            paymentKey: params.get('paymentKey'),
+            orderId,
+            amount: Number(params.get('amount'))
+          })
+        });
+        payment = await res.json();
+        if (!res.ok) return fail(payment.code || 'CONFIRM_FAILED', payment.message || '결제 승인에 실패했습니다.');
+      } catch (err) {
+        return fail('NETWORK_ERROR', '결제 승인 요청 중 오류가 발생했습니다.');
+      }
+
+      document.querySelector('.result__icon').textContent = '✓';
+      document.querySelector('.r-title').textContent = '결제가 완료되었습니다';
+      document.querySelector('.result__msg').textContent = '주문해 주셔서 감사합니다.';
+      document.querySelector('.r-order').textContent = payment.orderId;
+      document.querySelector('.r-name').textContent = payment.orderName;
+      document.querySelector('.r-method').textContent = payment.method || '-';
+      document.querySelector('.r-amount').textContent = won(payment.totalAmount);
+      document.querySelector('.r-date').textContent = payment.approvedAt
+        ? new Date(payment.approvedAt).toLocaleString('ko-KR')
+        : '-';
+      document.querySelector('.result dl').hidden = false;
+      document.querySelector('.result .btn').hidden = false;
+
+      if (!pending.direct) Cart.clear();
+      try {
+        sessionStorage.removeItem('outfit_pending');
+        sessionStorage.removeItem(ORDER_KEY);
+      } catch (e) {}
+    })();
+  </script>
+</body>
+</html>
