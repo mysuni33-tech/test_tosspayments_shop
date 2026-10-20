@@ -16,6 +16,8 @@
     <div class="inner header__row">
       <h1><a href="index.html" class="logo">OUTFIT</a></h1>
       <nav class="header__util">
+        <a href="login.html" class="auth-link">로그인</a>
+        <a href="mypage.html">마이페이지</a>
         <a href="index.html">쇼핑 계속하기</a>
       </nav>
     </div>
@@ -48,6 +50,24 @@
         </section>
 
         <section class="box">
+          <h3 class="box__title">배송지</h3>
+          <div class="form-row">
+            <label for="address">주소</label>
+            <input id="address" type="text" placeholder="도로명 주소를 입력하세요" autocomplete="street-address" maxlength="200">
+          </div>
+          <div class="form-row">
+            <label for="addressDetail">상세주소</label>
+            <input id="addressDetail" type="text" placeholder="동, 호수 등" maxlength="100">
+          </div>
+          <div class="form-row">
+            <label for="memo">배송 메모</label>
+            <input id="memo" type="text" placeholder="예: 문 앞에 놓아 주세요" maxlength="100">
+          </div>
+          <label class="check member-only" hidden><input type="checkbox" id="saveAddress"> 기본 배송지로 저장</label>
+          <p class="notice guest-only">로그인하면 저장된 배송지가 자동으로 입력되고, 마이페이지에서 주문 내역을 볼 수 있어요. <a href="login.html?next=checkout.html" class="link">로그인</a></p>
+        </section>
+
+        <section class="box">
           <h3 class="box__title">결제 수단</h3>
           <!-- 결제 UI -->
           <div id="payment-method"></div>
@@ -75,7 +95,9 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0/dist/umd/supabase.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/db.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/checkout.js"></script>
 </body>

@@ -20,8 +20,9 @@
         <input type="search" placeholder="브랜드, 상품명 검색">
       </label>
       <nav class="header__util">
-        <a href="#" class="hide-m">로그인</a>
-        <a href="#" class="hide-m">마이페이지</a>
+        <a href="admin.html" class="admin-link" hidden>관리자</a>
+        <a href="login.html" class="auth-link">로그인</a>
+        <a href="mypage.html">마이페이지</a>
         <a href="#" class="cart-btn">장바구니<span class="cart-count">0</span></a>
       </nav>
     </div>
@@ -97,6 +98,7 @@
         <button type="button" class="btn" data-action="cart">장바구니</button>
         <button type="button" class="btn btn--black" data-action="buy">바로 구매</button>
       </div>
+      <div class="reviews"></div>
     </div>
   </div>
 
@@ -113,7 +115,9 @@
     </div>
   </aside>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0/dist/umd/supabase.js"></script>
   <script src="js/products.js"></script>
+  <script src="js/db.js"></script>
   <script src="js/cart.js"></script>
   <script src="js/shop.js"></script>
 </body>

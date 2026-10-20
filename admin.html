@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>관리자 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a> <span class="admin-badge">ADMIN</span></h1>
+      <nav class="header__util">
+        <a href="login.html" class="auth-link">로그인</a>
+        <a href="index.html">쇼핑몰로</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inner page">
+    <div class="denied" hidden>
+      <p class="empty">관리자만 들어올 수 있는 화면입니다.</p>
+    </div>
+
+    <div class="admin" hidden>
+      <div class="tabs" role="tablist">
+        <button type="button" class="tab is-active" data-tab="orders" role="tab">주문 관리</button>
+        <button type="button" class="tab" data-tab="products" role="tab">상품 관리</button>
+      </div>
+
+      <!-- 주문 관리 -->
+      <section class="panel" data-panel="orders">
+        <div class="toolbar">
+          <div class="chips status-chips"></div>
+          <button type="button" class="btn btn--small reload-orders">새로고침</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>주문일시</th><th>주문번호</th><th>주문자</th><th>상품</th><th>결제금액</th><th>결제수단</th><th>상태</th></tr>
+            </thead>
+            <tbody class="order-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 상품 관리 -->
+      <section class="panel" data-panel="products" hidden>
+        <div class="toolbar">
+          <div class="chips category-chips"></div>
+          <button type="button" class="btn btn--black btn--small add-product">+ 상품 추가</button>
+        </div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th></th><th>상품</th><th>정가</th><th>할인</th><th>판매가</th><th>재고 (사이즈별)</th><th>판매</th><th></th></tr>
+            </thead>
+            <tbody class="product-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="dim"></div>
+  <!-- 주문 상세 / 상품 편집 창 -->
+  <div class="modal modal--panel" role="dialog" aria-modal="true">
+    <button type="button" class="modal__close" aria-label="닫기">×</button>
+    <div class="modal__content"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0/dist/umd/supabase.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

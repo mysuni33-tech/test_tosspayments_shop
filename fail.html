@@ -30,9 +30,29 @@
   <script>
     (function () {
       const params = new URLSearchParams(location.search);
-      if (params.get('message')) document.querySelector('.r-message').textContent = params.get('message');
-      document.querySelector('.r-code').textContent = params.get('code') || '-';
-      document.querySelector('.r-order').textContent = params.get('orderId') || '-';
+      let pending = null;
+      try {
+        pending = JSON.parse(sessionStorage.getItem('outfit_pending'));
+      } catch (e) {}
+      const orderId = params.get('orderId') || (pending && pending.orderId) || '';
+      const code = params.get('code') || 'PAY_FAILED';
+      const message = params.get('message') || '결제가 정상적으로 처리되지 않았습니다.';
+
+      document.querySelector('.r-message').textContent = message;
+      document.querySelector('.r-code').textContent = code;
+      document.querySelector('.r-order').textContent = orderId || '-';
+
+      // 실패 사유를 주문에 기록 (결제 대기 중인 주문만 바뀜)
+      if (/^[\w-]{6,64}$/.test(orderId)) {
+        fetch('/api/orders/' + orderId + '/fail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code, message })
+        }).catch(() => {});
+      }
+      try {
+        sessionStorage.removeItem('outfit_pending');
+      } catch (e) {}
     })();
   </script>
 </body>

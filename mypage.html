@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이페이지 | OUTFIT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="inner header__row">
+      <h1><a href="index.html" class="logo">OUTFIT</a></h1>
+      <nav class="header__util">
+        <a href="admin.html" class="admin-link" hidden>관리자</a>
+        <a href="login.html" class="auth-link">로그인</a>
+        <a href="index.html">쇼핑 계속하기</a>
+        <a href="#" class="cart-btn">장바구니<span class="cart-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="inner page">
+    <h2 class="page-title">마이페이지 <small class="hello"></small></h2>
+
+    <div class="tabs" role="tablist">
+      <button type="button" class="tab is-active" data-tab="orders" role="tab">주문 내역</button>
+      <button type="button" class="tab" data-tab="wish" role="tab">찜 목록</button>
+      <button type="button" class="tab" data-tab="info" role="tab">내 정보</button>
+    </div>
+
+    <section class="panel" data-panel="orders">
+      <div class="order-rows"></div>
+      <div class="order-detail" hidden></div>
+    </section>
+
+    <section class="panel" data-panel="wish" hidden>
+      <ul class="grid wish-grid"></ul>
+    </section>
+
+    <section class="panel" data-panel="info" hidden>
+      <form class="info-form" novalidate>
+        <div class="form-row">
+          <label>이메일</label>
+          <input type="text" id="infoEmail" readonly>
+        </div>
+        <div class="form-row">
+          <label for="infoName">이름</label>
+          <input id="infoName" type="text" maxlength="30">
+        </div>
+        <div class="form-row">
+          <label for="infoPhone">연락처</label>
+          <input id="infoPhone" type="tel" placeholder="숫자만 입력 (예: 01012345678)">
+        </div>
+        <div class="form-row">
+          <label for="infoAddress">기본 배송지</label>
+          <input id="infoAddress" type="text" placeholder="도로명 주소" maxlength="200">
+        </div>
+        <div class="form-row">
+          <label for="infoAddressDetail">상세주소</label>
+          <input id="infoAddressDetail" type="text" placeholder="동, 호수 등" maxlength="100">
+        </div>
+        <button type="submit" class="btn btn--black">저장하기</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="inner">
+      <strong>OUTFIT</strong>
+      <p>퍼블리싱 데모 페이지입니다.</p>
+    </div>
+  </footer>
+
+  <!-- 장바구니 드로어 -->
+  <div class="dim"></div>
+  <aside class="drawer" aria-label="장바구니">
+    <div class="drawer__head">
+      <h2>장바구니</h2>
+      <button type="button" class="drawer__close" aria-label="닫기">×</button>
+    </div>
+    <div class="drawer__list"></div>
+    <div class="drawer__foot">
+      <p class="drawer__sum"><span>총 결제금액</span><strong class="drawer__total">0원</strong></p>
+      <button type="button" class="btn btn--black drawer__order">주문하기</button>
+    </div>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.105.0/dist/umd/supabase.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/mypage.js"></script>
+</body>
+</html>
