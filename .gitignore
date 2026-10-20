@@ -7,3 +7,4 @@ node_modules/
 Thumbs.db
 .claude.local.md
 !.env.example
+dist/

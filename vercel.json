@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "rm -rf dist && mkdir -p dist && cp *.html dist/ && cp -r css js dist/",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/handler.js": { "includeFiles": "js/products.js" }
+  },
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/handler?path=:path*" }
+  ]
+}

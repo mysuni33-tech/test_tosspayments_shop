@@ -39,7 +39,11 @@ On this Windows machine, Node.js and Git were installed via winget. A shell that
 4. Cancel: `POST /api/orders/:id/cancel` (owner for `PAID`/`PREPARING`, admin also for `SHIPPING`/`DELIVERED`) → Toss `/v1/payments/{paymentKey}/cancel` → `order_mark_canceled` restores stock.
 5. Admin status: `POST /api/admin/orders/:id/status` only moves `PAID → PREPARING → SHIPPING → DELIVERED`.
 
-**Static file allowlist.** `server.js` only serves paths that match the `PUBLIC` regex: root-level `*.html` and files under `css/`, `js/`, and `images/`. This also keeps `server.js` and `.env` from being served.
+**Server code layout.** All `/api/*` logic lives in `lib/api.js` (`handleApi(method, pathname, body, authorization)` → `{status, data}`). Two thin entry points use it: `server.js` (local dev: `.env` loading + static files) and `api/handler.js` (Vercel function). Add new endpoints in `lib/api.js` `route()` only.
+
+**Vercel.** Project `test_tosspayments_shop` (Hobby, team `at-im1`) is connected to the GitHub repo: pushes to `main` deploy to https://testtosspaymentsshop-orcin.vercel.app, other branches get preview deployments. `vercel.json` copies only `*.html`, `css/`, `js/` into `dist/` (so `server.js`, `lib/`, docs are not public), bundles `js/products.js` into the function, and rewrites `/api/:path*` → `/api/handler?path=:path*`. `SUPABASE_SECRET_KEY` (and optionally `TOSS_SECRET_KEY`) must be set as Vercel environment variables.
+
+**Static file allowlist.** Locally, `server.js` only serves paths that match the `PUBLIC` regex: root-level `*.html` and files under `css/`, `js/`, and `images/`. This also keeps `server.js` and `.env` from being served.
 
 ## Supabase
 
